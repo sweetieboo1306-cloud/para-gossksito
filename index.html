@@ -88,7 +88,6 @@
             line-height: 1.6;
         }
 
-        /* Contenedor de la Foto */
         .photo-container {
             position: relative;
             width: 100%;
@@ -126,7 +125,6 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* Reproductor de Música */
         .music-player {
             background: rgba(22, 27, 34, 0.7);
             border: 1px dashed var(--accent);
@@ -298,17 +296,12 @@
             Hoy quise hacerte algo diferente para recordarte lo increíble que eres y lo mucho que te admiro cada día. ¡Gracias por ser tú!
         </p>
 
-        <!-- EDITAR AQUÍ: Coloca la foto de ustedes en la misma carpeta de GitHub, llámala 'nosotros.jpg' (o usa un enlace de internet) -->
         <div class="photo-container">
             <img src="nosotros.jpg" alt="Gossksito y yo" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80';">
             <div class="photo-caption">👨‍💻 &nbsp;[nosotros.jpg] && "contigo siempre"</div>
         </div>
 
-        <!-- REPRODUCTOR DE MÚSICA -->
-        <!-- EDITAR AQUÍ: Sube la canción como 'nuestra_cancion.mp3' a GitHub, o usa un link directo .mp3 de internet -->
-        <audio id="bg-audio" loop>
-            <source src="nuestra_cancion.mp3" type="audio/mpeg">
-        </audio>
+        <audio id="bg-audio" src="nuestra_cancion.mp3" loop preload="auto"></audio>
         
         <div class="music-player">
             <div class="music-info">
@@ -368,7 +361,7 @@
                         statusText.innerText = "🔊 Sonando para ti";
                     })
                     .catch(err => {
-                        console.log("Error al reproducir, interactúa primero:", err);
+                        console.log("Error al reproducir:", err);
                     });
             } else {
                 audio.pause();
@@ -378,7 +371,6 @@
         }
 
         function mostrarSorpresa() {
-            // Intenta reproducir la música al hacer clic en el gran botón si no lo ha hecho antes
             if (audio.paused) {
                 audio.play().then(() => {
                     playBtn.innerText = "PAUSE";
@@ -391,7 +383,6 @@
             lanzarConfeti();
         }
 
-        // Efecto de confeti sencillo
         const canvas = document.getElementById('confetti');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
