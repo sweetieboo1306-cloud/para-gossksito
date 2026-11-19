@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día del Hombre, Gossksito ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@300;500;700&display=swap');
+
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --accent: #58a6ff;
+            --accent-secondary: #ff7b72;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #58a6ff, #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* Contenedor de la Foto */
+        .photo-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 24px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.2);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.85);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-family: 'Fira Code', monospace;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Reproductor de Música */
+        .music-player {
+            background: rgba(22, 27, 34, 0.7);
+            border: 1px dashed var(--accent);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .music-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .music-status {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .music-controls button {
+            background: var(--accent);
+            border: none;
+            color: #0d1117;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Fira Code', monospace;
+            transition: background 0.2s;
+        }
+
+        .music-controls button:hover {
+            background: #a371f7;
+            color: white;
+        }
+
+        .code-box {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .keyword { color: #ff7b72; }
+        .variable { color: #79c0ff; }
+        .string { color: #a5d6ff; }
+        .comment { color: #8b949e; }
+
+        .qualities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .quality-card {
+            background: rgba(88, 166, 255, 0.08);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .quality-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .quality-card span {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .quality-card p {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .btn-surprise {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #238636, #2ea043);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn-surprise:hover {
+            opacity: 0.92;
+        }
+
+        .btn-surprise:active {
+            transform: scale(0.98);
+        }
+
+        .secret-message {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            background: rgba(255, 123, 114, 0.1);
+            border: 1px solid rgba(255, 123, 114, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .secret-message h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .secret-message p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti"></canvas>
+
+    <div class="container">
+        <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <span class="terminal-title">dia_del_hombre.js — para Gossksito 💙</span>
+        </div>
+
+        <h1>¡Feliz Día del Hombre, mi Gossksito! 💙</h1>
+        <p class="subtitle">
+            Hoy quise hacerte algo diferente para recordarte lo increíble que eres y lo mucho que te admiro cada día. ¡Gracias por ser tú!
+        </p>
+
+        <!-- EDITAR AQUÍ: Coloca la foto de ustedes en la misma carpeta de GitHub, llámala 'nosotros.jpg' (o usa un enlace de internet) -->
+        <div class="photo-container">
+            <img src="nosotros.jpg" alt="Gossksito y yo" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80';">
+            <div class="photo-caption">👨‍💻 &nbsp;[nosotros.jpg] && "contigo siempre"</div>
+        </div>
+
+        <!-- REPRODUCTOR DE MÚSICA -->
+        <!-- EDITAR AQUÍ: Sube la canción como 'nuestra_cancion.mp3' a GitHub, o usa un link directo .mp3 de internet -->
+        <audio id="bg-audio" loop>
+            <source src="nuestra_cancion.mp3" type="audio/mpeg">
+        </audio>
+        
+        <div class="music-player">
+            <div class="music-info">
+                <span class="music-title">🎵 Nuestra canción favorita</span>
+                <span class="music-status" id="status-text">🔇 Presiona Play</span>
+            </div>
+            <div class="music-controls">
+                <button id="play-btn" onclick="togglePlay()">PLAY</button>
+            </div>
+        </div>
+
+        <div class="code-box">
+            <span class="comment">// Resumen de mi persona favorita</span><br>
+            <span class="keyword">const</span> <span class="variable">miNovio</span> = {<br>
+            &nbsp;&nbsp;nombre: <span class="string">"Gossksito"</span>,<br>
+            &nbsp;&nbsp;estado: <span class="string">"El mejor compañero de equipo"</span>,<br>
+            &nbsp;&nbsp;nivelDeOrgullo: <span class="string">"1000% todos los días"</span>,<br>
+            &nbsp;&nbsp;loQueMasAmo: <span class="string">"Tu forma de ser y cómo me cuidas"</span><br>
+            };
+        </div>
+
+        <div class="qualities">
+            <div class="quality-card">
+                <span>🛡️</span>
+                <p>Mi lugar seguro</p>
+            </div>
+            <div class="quality-card">
+                <span>🚀</span>
+                <p>Trabajador y dedicado</p>
+            </div>
+            <div class="quality-card">
+                <span>✨</span>
+                <p>Mi mejor compañía</p>
+            </div>
+        </div>
+
+        <button class="btn-surprise" id="action-btn" onclick="mostrarSorpresa()">Haz clic para ejecutar sorpresa 🎁</button>
+
+        <div class="secret-message" id="secretBox">
+            <h3>¡Mensaje desbloqueado! ❤️</h3>
+            <p>
+                Gracias por estar siempre ahí, por tu esfuerzo, tu paciencia y por hacer mis días muchísimo más bonitos. ¡Te mereces todo lo bueno del mundo, hoy y siempre! Te amo un montón, mi Gossksito hermoso. 💙
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bg-audio');
+        const playBtn = document.getElementById('play-btn');
+        const statusText = document.getElementById('status-text');
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play()
+                    .then(() => {
+                        playBtn.innerText = "PAUSE";
+                        statusText.innerText = "🔊 Sonando para ti";
+                    })
+                    .catch(err => {
+                        console.log("Error al reproducir, interactúa primero:", err);
+                    });
+            } else {
+                audio.pause();
+                playBtn.innerText = "PLAY";
+                statusText.innerText = "🔇 Pausado";
+            }
+        }
+
+        function mostrarSorpresa() {
+            // Intenta reproducir la música al hacer clic en el gran botón si no lo ha hecho antes
+            if (audio.paused) {
+                audio.play().then(() => {
+                    playBtn.innerText = "PAUSE";
+                    statusText.innerText = "🔊 Sonando para ti";
+                }).catch(() => {});
+            }
+
+            const box = document.getElementById('secretBox');
+            box.style.display = 'block';
+            lanzarConfeti();
+        }
+
+        // Efecto de confeti sencillo
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let pieces = [];
+        const colors = ['#58a6ff', '#ff7b72', '#2ea043', '#a371f7', '#f2cc60'];
+
+        function lanzarConfeti() {
+            pieces = [];
+            for (let i = 0; i < 120; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    w: Math.random() * 8 + 4,
+                    h: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3 + 2,
+                    angle: Math.random() * 360
+                });
+            }
+            animar();
+        }
+
+        function animar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pieces.forEach(p => {
+                p.y += p.speed;
+                p.angle += 2;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, p.w, p.h);
+            });
+            if (pieces.some(p => p.y < canvas.height)) {
+                requestAnimationFrame(animar);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
