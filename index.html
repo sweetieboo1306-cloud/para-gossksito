@@ -17,11 +17,7 @@
             --text-muted: #8b949e;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
@@ -56,11 +52,7 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
         .red { background: #ff5f56; }
         .yellow { background: #ffbd2e; }
         .green { background: #27c93f; }
@@ -107,9 +99,7 @@
             transition: transform 0.3s ease;
         }
 
-        .photo-container:hover img {
-            transform: scale(1.03);
-        }
+        .photo-container:hover img { transform: scale(1.03); }
 
         .photo-caption {
             position: absolute;
@@ -137,22 +127,9 @@
             gap: 12px;
         }
 
-        .music-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .music-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .music-status {
-            font-size: 0.7rem;
-            color: var(--accent);
-            font-family: 'Fira Code', monospace;
-        }
+        .music-info { display: flex; flex-direction: column; }
+        .music-title { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+        .music-status { font-size: 0.7rem; color: var(--accent); font-family: 'Fira Code', monospace; }
 
         .music-controls button {
             background: var(--accent);
@@ -167,10 +144,7 @@
             transition: background 0.2s;
         }
 
-        .music-controls button:hover {
-            background: #a371f7;
-            color: white;
-        }
+        .music-controls button:hover { background: #a371f7; color: white; }
 
         .code-box {
             background: #0d1117;
@@ -205,21 +179,9 @@
             transition: transform 0.2s ease;
         }
 
-        .quality-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-        }
-
-        .quality-card span {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .quality-card p {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
+        .quality-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+        .quality-card span { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+        .quality-card p { font-size: 0.85rem; font-weight: 500; }
 
         .btn-surprise {
             width: 100%;
@@ -235,13 +197,8 @@
             transition: opacity 0.2s, transform 0.1s;
         }
 
-        .btn-surprise:hover {
-            opacity: 0.92;
-        }
-
-        .btn-surprise:active {
-            transform: scale(0.98);
-        }
+        .btn-surprise:hover { opacity: 0.92; }
+        .btn-surprise:active { transform: scale(0.98); }
 
         .secret-message {
             display: none;
@@ -254,34 +211,21 @@
             animation: fadeIn 0.5s ease forwards;
         }
 
-        .secret-message h3 {
-            color: var(--accent-secondary);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .secret-message p {
-            font-size: 0.92rem;
-            line-height: 1.6;
-        }
+        .secret-message h3 { color: var(--accent-secondary); margin-bottom: 8px; font-size: 1.1rem; }
+        .secret-message p { font-size: 0.92rem; line-height: 1.6; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
+        canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1; }
     </style>
 </head>
 <body>
 
     <canvas id="confetti"></canvas>
+    <div id="yt-player" style="position:fixed; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
 
     <div class="container">
         <div class="terminal-header">
@@ -300,8 +244,6 @@
             <img src="nosotros.jpg" alt="Gossksito y yo" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80';">
             <div class="photo-caption">👨‍💻 &nbsp;[nosotros.jpg] && "contigo siempre"</div>
         </div>
-
-        <audio id="bg-audio" src="nuestra_cancion.mp3" loop preload="auto"></audio>
         
         <div class="music-player">
             <div class="music-info">
@@ -348,38 +290,45 @@
         </div>
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const audio = document.getElementById('bg-audio');
+        const YOUTUBE_ID = "N_Id6KNQtLw";
+
+        let player;
+        let isPlaying = false;
         const playBtn = document.getElementById('play-btn');
         const statusText = document.getElementById('status-text');
 
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                videoId: YOUTUBE_ID,
+                playerVars: { autoplay: 0, loop: 1, playlist: YOUTUBE_ID }
+            });
+        }
+
         function togglePlay() {
-            if (audio.paused) {
-                audio.play()
-                    .then(() => {
-                        playBtn.innerText = "PAUSE";
-                        statusText.innerText = "🔊 Sonando para ti";
-                    })
-                    .catch(err => {
-                        console.log("Error al reproducir:", err);
-                    });
+            if (!player || !player.playVideo) return;
+            if (!isPlaying) {
+                player.playVideo();
+                isPlaying = true;
+                playBtn.innerText = "PAUSE";
+                statusText.innerText = "🔊 Sonando para ti";
             } else {
-                audio.pause();
+                player.pauseVideo();
+                isPlaying = false;
                 playBtn.innerText = "PLAY";
                 statusText.innerText = "🔇 Pausado";
             }
         }
 
         function mostrarSorpresa() {
-            if (audio.paused) {
-                audio.play().then(() => {
-                    playBtn.innerText = "PAUSE";
-                    statusText.innerText = "🔊 Sonando para ti";
-                }).catch(() => {});
+            if (!isPlaying && player && player.playVideo) {
+                player.playVideo();
+                isPlaying = true;
+                playBtn.innerText = "PAUSE";
+                statusText.innerText = "🔊 Sonando para ti";
             }
-
-            const box = document.getElementById('secretBox');
-            box.style.display = 'block';
+            document.getElementById('secretBox').style.display = 'block';
             lanzarConfeti();
         }
 
